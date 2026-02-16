@@ -13,7 +13,14 @@ def save_curves(
     val_acc: list[float],
 ) -> None:
     plots_dir.mkdir(parents=True, exist_ok=True)
+
     epochs_list = list(epochs)
+    n = min(len(epochs_list), len(train_loss), len(val_loss), len(val_acc))
+
+    epochs_list = epochs_list[:n]
+    train_loss = train_loss[:n]
+    val_loss = val_loss[:n]
+    val_acc = val_acc[:n]
 
     plt.figure()
     plt.plot(epochs_list, train_loss, label="train_loss")

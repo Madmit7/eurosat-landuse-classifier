@@ -152,7 +152,12 @@ class Commands:
         trainer.test(lit, datamodule=dm, ckpt_path="best")
 
         curves = lit.epoch_curves
-        epochs = range(1, len(curves["val_acc"]) + 1)
+        n = min(
+            len(curves["train_loss"]),
+            len(curves["val_loss"]),
+            len(curves["val_acc"]),
+        )
+        epochs = range(1, n + 1)
         save_curves(
             plots_dir=plots_dir,
             epochs=epochs,
