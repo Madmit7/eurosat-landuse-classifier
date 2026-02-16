@@ -15,3 +15,6 @@ train:
 
 artifacts_dir: artifacts
 plots_dir: plots
+
+infer:
+  checkpoint_path: artifacts/best.ckpt
