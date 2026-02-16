@@ -18,7 +18,7 @@ from eurosat_landuse.data.download import download_eurosat_rgb_if_needed
 from eurosat_landuse.infer.predictor import Predictor, PredictorConfig
 from eurosat_landuse.models.factory import create_model
 from eurosat_landuse.serving.mlflow_pyfunc import EuroSATPyFuncModel, ServingConfig
-from eurosat_landuse.training.lit_module import LanduseLitModule, TrainConfig
+from eurosat_landuse.training.lit_module import LanduseLitModule
 from eurosat_landuse.utils.git import get_git_commit_id
 from eurosat_landuse.utils.plots import save_curves
 from eurosat_landuse.utils.repro import seed_everything
@@ -111,9 +111,8 @@ class Commands:
         lit = LanduseLitModule(
             model=model,
             num_classes=int(cfg.model.num_classes),
-            train_cfg=TrainConfig(
-                lr=float(cfg.train.lr), weight_decay=float(cfg.train.weight_decay)
-            ),
+            lr=float(cfg.train.lr),
+            weight_decay=float(cfg.train.weight_decay),
             class_names=class_names,
             plots_dir=plots_dir,
         )

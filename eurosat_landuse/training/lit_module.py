@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -15,27 +14,31 @@ from torchmetrics.classification import (
 from eurosat_landuse.utils.plots import save_confusion_matrix
 
 
-@dataclass(frozen=True)
-class TrainConfig:
-    lr: float
-    weight_decay: float
-
-
 class LanduseLitModule(pl.LightningModule):
     def __init__(
         self,
         model: nn.Module,
         num_classes: int,
-        train_cfg: TrainConfig,
+        lr: float,
+        weight_decay: float,
         class_names: list[str],
         plots_dir: Path,
     ) -> None:
         super().__init__()
-        self.save_hyperparameters(ignore=["model"])
+        self.save_hyperparameters(
+            {
+                "num_classes": num_classes,
+                "lr": lr,
+                "weight_decay": weight_decay,
+            }
+        )
+
         self.model = model
         self.loss_fn = nn.CrossEntropyLoss()
 
-        self.train_cfg = train_cfg
+        self.lr = lr
+        self.weight_decay = weight_decay
+
         self.class_names = class_names
         self.plots_dir = plots_dir
 
@@ -111,8 +114,8 @@ class LanduseLitModule(pl.LightningModule):
     def configure_optimizers(self) -> Any:
         optimizer = torch.optim.AdamW(
             self.parameters(),
-            lr=self.train_cfg.lr,
-            weight_decay=self.train_cfg.weight_decay,
+            lr=self.lr,
+            weight_decay=self.weight_decay,
         )
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10)
         return {"optimizer": optimizer, "lr_scheduler": scheduler}
