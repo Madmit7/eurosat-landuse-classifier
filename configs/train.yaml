@@ -1,0 +1,16 @@
+defaults:
+  - data: eurosat
+  - model: resnet18
+  - trainer: default
+  - logger: mlflow
+  - export: export
+
+seed: 42
+
+train:
+  batch_size: 64
+  lr: 0.0003
+  weight_decay: 0.0001
+
+artifacts_dir: artifacts
+plots_dir: plots

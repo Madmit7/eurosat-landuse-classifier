@@ -1,0 +1,4 @@
+name: resnet18
+pretrained: true
+num_classes: 10
+image_size: 224

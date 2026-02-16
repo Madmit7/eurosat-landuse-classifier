@@ -1,0 +1,10 @@
+defaults:
+  - data: eurosat
+  - model: resnet18
+
+seed: 42
+
+infer:
+  checkpoint_path: artifacts/best.ckpt
+  image_path: null
+  topk: 3

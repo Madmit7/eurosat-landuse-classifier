@@ -1,0 +1,8 @@
+onnx:
+  enabled: true
+  path: artifacts/model.onnx
+  opset: 17
+
+mlflow_model:
+  enabled: true
+  path: artifacts/mlflow_model
