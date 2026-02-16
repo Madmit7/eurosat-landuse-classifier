@@ -1,9 +1,10 @@
 defaults:
+  - _self_
   - data: eurosat
   - model: resnet18
   - trainer: default
   - logger: mlflow
-  - export: export
+  - export
 
 seed: 42
 
