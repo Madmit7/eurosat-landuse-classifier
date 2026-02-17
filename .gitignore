@@ -10,7 +10,12 @@ build/
 mlruns/
 mlflow.db
 
-data/
+data/**
+!data/**/
+!data/**/*.dvc
+!data/**/*.gitkeep
+
+
 artifacts/
 *.onnx
 *.pth

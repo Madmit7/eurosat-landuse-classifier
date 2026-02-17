@@ -1,0 +1,6 @@
+outs:
+- md5: bff43f93e1bb7c85d1021434eb407e8a.dir
+  size: 91844360
+  nfiles: 27000
+  hash: md5
+  path: EuroSAT_RGB
